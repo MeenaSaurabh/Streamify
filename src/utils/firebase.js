@@ -22,3 +22,16 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 export const auth = getAuth();
+
+// ----------------------------------------------------------------------------------------------------------
+
+// 3.Install Firebase CLI ->
+// npm install -g firebase-tools
+
+// 4.Deploy to Firebase Hosting ->
+// firebase login
+// firebase init
+// firebase deploy
+
+// Steps 3rd & 4th will give firebase.json & firebaserc files----->
+

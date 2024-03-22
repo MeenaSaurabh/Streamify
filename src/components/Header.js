@@ -50,8 +50,8 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  // Toggle GPT Search
   const handleGptSearchClick = () => {
-    // Toggle GPT Search
     dispatch(toggleGptSearchView());
   };
 

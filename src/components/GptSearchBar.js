@@ -11,7 +11,6 @@ const GptSearchBar = () => {
   const searchText = useRef(null);
 
   // search movie in TMDB
-  // 'https://api.themoviedb.org/3/search/movie?query=Don&include_adult=false&language=en-US&page=1'
   const searchMovieTMDB = async (movie) => {
     const data = await fetch(
       "https://api.themoviedb.org/3/search/movie?query=" +
@@ -25,7 +24,7 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
-    console.log(searchText.current.value);
+    // console.log(searchText.current.value);
     // Make an API call to GPT API and get Movie Results
 
     const gptQuery =
@@ -42,7 +41,7 @@ const GptSearchBar = () => {
       // TODO: Write Error Handling, If gptResults don't give any movies on searching
     }
 
-    console.log(gptResults.choices?.[0]?.message?.content); // content: "Andaz Apna Apna, Hera Pheri, Chupke Chupke, Jaane Bhi Do Yaaro, Padosan"
+    // console.log(gptResults.choices?.[0]?.message?.content); // content: "Andaz Apna Apna, Hera Pheri, Chupke Chupke, Jaane Bhi Do Yaaro, Padosan"
     const gptMovies = gptResults.choices?.[0]?.message?.content.split(",");
     // .split(",") will give this array-of-movies = ["Andaz Apna Apna", "Hera Pheri", "Chupke Chupke", "Jaane Bhi Do Yaaro", "Padosan"]
 
@@ -52,7 +51,7 @@ const GptSearchBar = () => {
 
     const tmdbResults = await Promise.all(promiseArray);
     // Our program will wait for Promise.all() f'n to finish which will happen once all the Promise's inside get resolved
-    console.log(tmdbResults);
+    // console.log(tmdbResults);
 
     dispatch(
       addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })  // it will add Array-of-Array's in store
