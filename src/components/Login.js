@@ -27,7 +27,7 @@ const Login = () => {
     if (message) return; // return only if there is any string(i.e error) other than null
     // Else - Sign Up/In  Logic
     if (!isSignInForm) {
-      // Sign Up Logic
+      // Sign Up Logic - Copy 'Web modular API' inside Firebase_DOCS->Build->Web->Password_Authentication
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -36,7 +36,9 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
+
+          // from DOCS->Build->Web->ManageUsers->updateProfile
           updateProfile(user, {
             // user = auth.currentUser
             displayName: name.current.value,
@@ -56,13 +58,14 @@ const Login = () => {
               );
             })
             .catch((error) => {
+              // An error occurred
               setErrorMessage(error.message);
             });
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
+          const errorCode = error.code; // i.e. auth/email-already-in-use
+          const errorMessage = error.message; // i.e. Firebase: Error (auth/email-already-in-use)
+          setErrorMessage(errorCode);
         });
     } else {
       // Sign In Logic
@@ -74,13 +77,14 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          // navigate("/browse")
+          // console.log(user);
+          // navigate("/browse")  onAuthStateChanged will handle this
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
+          setErrorMessage(errorCode);
+          // setErrorMessage(errorCode + "-" + errorMessage);
         });
     }
   };
@@ -90,15 +94,19 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <Header />
 
       <div className="absolute">
-        <img className="h-screen w-screen no-scrollbar object-cover" src={BG_URL} alt="logo" />
+        <img
+          className="h-screen w-screen no-scrollbar object-cover"
+          src={BG_URL}
+          alt="logo"
+        />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="w-full md:w-3/12 absolute p-12 bg-black my-36 md:my-24 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
+        className="w-11/12 md:w-3/12 absolute p-10 bg-black my-28 md:my-24 mx-auto right-0 left-0 text-white rounded-lg bg-opacity-80"
       >
         <h1 className="font-bold text-3xl py-4">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -109,32 +117,35 @@ const Login = () => {
           <input
             ref={name}
             type="text"
+            required
             placeholder="Full Name"
-            className="p-4 my-4 w-full bg-gray-700"
+            className="p-4 my-2 w-full bg-gray-700"
           />
         )}
         <input
           ref={email}
           type="text"
+          required
           placeholder="Email Address"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-2 w-full bg-gray-700"
         />
         <input
           ref={password}
           type="password"
+          required
           placeholder="Password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-2 w-full bg-gray-700"
         />
-        <p className="text-red-500 font-bold text-lg py-2">{errorMessage}</p>
+        <p className="text-red-500 font-bold text-sm ">{errorMessage}</p>
         <button
-          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          className="p-3 my-4 bg-red-700 w-full rounded-lg text-lg"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={toggleSignInForm}>
+        <p className="py-1 cursor-pointer" onClick={toggleSignInForm}>
           {isSignInForm
-            ? "New to Netflix? Sign Up Now"
+            ? "New to Netflix? Sign Up Now."
             : "Already registered? Sign In Now."}
         </p>
       </form>

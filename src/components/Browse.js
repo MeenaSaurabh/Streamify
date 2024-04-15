@@ -9,6 +9,7 @@ import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 
 const Browse = () => {
+  // By default 'showGptSearch: false' in gptSlice.js
   const showGptSearch = useSelector((store) => store.gpt.showGptSearch);
 
   useNowPlayingMovies();

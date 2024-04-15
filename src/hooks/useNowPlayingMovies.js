@@ -13,7 +13,7 @@ const useNowPlayingMovies = () => {
   );
 
   const getNowPlayingMovies = async () => {
-    // copying from tmdb-DOCS API-Reference's Movie list
+    // copying from tmdb-DOCS->API-Reference's->Movie list
     const data = await fetch(
       "https://api.themoviedb.org/3/movie/now_playing?page=1",
       API_OPTIONS

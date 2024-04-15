@@ -17,14 +17,17 @@ const Header = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
+        // Sign-out successful.
         // navigate("/");  onAuthStateChanged will handle this
       })
       .catch((error) => {
+        // An error happened.
         navigate("/error");
       });
   };
 
   useEffect(() => {
+    // from DOCS->Build->Web->ManageUsers->onAuthStateChanged
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in/up
@@ -56,19 +59,20 @@ const Header = () => {
   };
 
   const handleLanguageChange = (e) => {
+    // in configSlice.js
     dispatch(changeLanguage(e.target.value));
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-between">
+    <div className="absolute w-screen md:px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row justify-start md:justify-between">
       <img className="w-44 mx-auto my-3 md:mx-0 md:my-3" src={LOGO} alt="logo" />
+      {/* show this Only if user is present i.e on Browse page */}
       {user && (
-        // show this Only if user is present i.e on Browse page
-        <div className="flex p-2 justify-between">
+        <div className="flex p-2 justify-between"> 
           {showGptSearch && (
-            // show this(i.e GptSearch Component) Only if GptSearch is clicked
+            // show this(GptSearch Component) Only if GptSearch is clicked
             <select
-              className="p-2 m-2 bg-gray-900 text-white"
+              className="p-2 m-2 border-none bg-slate-200 rounded-md"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -80,19 +84,19 @@ const Header = () => {
           )}
 
           <button
-            className="py-2 px-4 mx-4 my-2 bg-purple-800 text-white rounded-lg"
+            className="py-2 px-4 mx-4 my-2 bg-red-700 text-white font-bold rounded-lg"
             onClick={handleGptSearchClick}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showGptSearch ? "Home" : "GPT Search"}
           </button>
-          <img
-            className="hidden md:block w-12 h-12"
-            alt="usericon"
-            src={user?.photoURL}
-          />
           <button onClick={handleSignOut} className="font-bold text-white ">
             (Sign Out)
           </button>
+          <img
+            className="hidden md:block w-9 h-9 mt-2 rounded-sm justify-center"
+            alt="usericon"
+            src={user?.photoURL}
+          />
         </div>
       )}
     </div>

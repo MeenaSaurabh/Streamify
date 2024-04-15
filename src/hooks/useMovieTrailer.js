@@ -4,7 +4,7 @@ import { API_OPTIONS } from "../utils/constants";
 import { addTrailerVideo } from "../utils/moviesSlice";
 
 // It fetch's trailer video & updates the store with trailerVideo data
-const useMovieTrailer = (movieId,setTrailerVideo) => {
+const useMovieTrailer = (movieId, setTrailerVideo) => {
   const dispatch = useDispatch();
   const trailerVideo = useSelector((store) => store.movies.trailerVideo);
 
@@ -17,7 +17,7 @@ const useMovieTrailer = (movieId,setTrailerVideo) => {
       API_OPTIONS
     );
     const json = await data.json();
-    // filtering only Trailers from several videos of a particular movie
+    // filtering only 'Trailers' from several videos of a particular movie
     const filterData = json.results.filter((video) => video.type === "Trailer");
     const trailer = filterData.length ? filterData[0] : json.results[0]; // 1st option- If there are more than 1 trailer & 2nd option - For movies having No Trailer
     // setTrailerVideo(trailer)

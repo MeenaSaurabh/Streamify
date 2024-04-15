@@ -1,9 +1,14 @@
-import { createBrowserRouter, useNavigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
 import Browse from "./Browse";
 import Login from "./Login";
-import { RouterProvider } from "react-router-dom";
+import Watch from "./Watch";
 
 const Body = () => {
+  // npm i -D react-router-dom
   const appRouter = createBrowserRouter([
     {
       path: "/",
@@ -13,10 +18,16 @@ const Body = () => {
       path: "/browse",
       element: <Browse />,
     },
+    {
+      path: "/watch",
+      element: <Watch />,
+    }
   ]);
 
   // navigate("/") in Else-part will give an Error i.e this navigate() should be written inside some child component of Body(i.e Header/Browse) & not in the Body component
-  // OR the appRouter should have been put at the App level
+  // OR the 'appRouter' should have been put at the App level i.e in App.js
+  // SOLUTION - written this code of useEffect() in unsubscribe part of 'Header.js' and inside updateProfile() in .then of 'Login.js'
+
   // useEffect(() => {
   //   onAuthStateChanged(auth, (user) => {
   //     if (user) {
@@ -39,7 +50,6 @@ const Body = () => {
   //     }
   //   });
   // });
-  // SOLUTION - written this code in Header.js in unsubscribe & updateProfile() inside .then in Login.js
 
   return (
     <div>
